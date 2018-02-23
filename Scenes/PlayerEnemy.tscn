@@ -17,6 +17,7 @@ extents = Vector2( 32, 32 )
 
 [node name="Player" type="KinematicBody2D" parent="." index="0"]
 
+editor/display_folded = true
 position = Vector2( 512, 320 )
 input_pickable = false
 collision_layer = 1
@@ -40,6 +41,7 @@ shape = SubResource( 1 )
 
 [node name="RigidBody2D" type="RigidBody2D" parent="." index="1"]
 
+editor/display_folded = true
 position = Vector2( 704, 320 )
 input_pickable = false
 collision_layer = 1
@@ -72,5 +74,7 @@ _sections_unfolded = [ "Visibility" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" index="1"]
 
 shape = SubResource( 2 )
+
+[node name="View" type="Node" parent="." index="2"]
 
 
