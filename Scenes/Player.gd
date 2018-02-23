@@ -11,6 +11,8 @@ var motion = Vector2()
 var dir = Vector2()
 const UP = Vector2(0,0)
 
+signal move
+
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -38,6 +40,7 @@ func _physics_process(delta):
 	dir = (get_local_mouse_position() - position).normalized()
 	look_at(get_global_mouse_position())
 	move_and_slide(motion)
+	emit_signal("move")
 	pass
 	
 	
