@@ -1,0 +1,32 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/flat,1000x1000,075,f (1).jpg-b6fca49867533af8d3a7a671bde463f2.stex"
+
+[deps]
+
+source_file="res://Textures/flat,1000x1000,075,f (1).jpg"
+source_md5="71a9b7d16c8f12e4d7e3e819e5366171"
+
+dest_files=[ "res://.import/flat,1000x1000,075,f (1).jpg-b6fca49867533af8d3a7a671bde463f2.stex" ]
+dest_md5="06af4867840088a86f742b5e54fa3f40"
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
