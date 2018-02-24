@@ -14,6 +14,7 @@ enum EnemyState {
 var state = EnemyState.Patrol
 var draw_color = GREEN
 
+var soundFlag = false
 var angle = -90
 var currrentDirection = Vector2()
 var pathUpdateTimer = 0
@@ -48,7 +49,11 @@ func update_state():
 	if position.distance_to(player.position)<DETECT_RADIUS && abs(angleBetween) < FOV/2:
 		draw_color = RED
 		state = EnemyState.Alert
-	else:		
+		if !soundFlag:
+			get_tree().root.get_node("World/Alert").play()
+			soundFlag = true
+	else:
+		soundFlag = false
 		if(currentPatrol == "A"):
 			patrol = patrolA
 		else:

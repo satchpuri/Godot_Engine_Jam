@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/BGM.wav-f08325faa6824b074068e5745e1da17a.sample"
+
+[deps]
+
+source_file="res://Sounds/BGM.wav"
+source_md5="59e80ca8013d223bbf1d7e3e7000dd80"
+
+dest_files=[ "res://.import/BGM.wav-f08325faa6824b074068e5745e1da17a.sample" ]
+dest_md5="4ccdd9c9fab5e9aeda54a5040b48be5c"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

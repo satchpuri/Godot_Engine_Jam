@@ -21,6 +21,8 @@ var angle = 90
 
 signal move
 
+var stepCounter = 20
+
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -31,18 +33,26 @@ func _ready():
 #	# Update game logic here.
 #	pass
 
+func _input(event):
+	if event.is_action_pressed("ui_accept"): get_tree().root.get_node("World/Coin").play()
+
 func _physics_process(delta):
+	var stepping = false
 	if Input.is_action_pressed("ui_up"):
 		motion.y = max(motion.y - ACCELERATION, -MAX_SPEED)	
+		stepping = true
 	elif Input.is_action_pressed("ui_down"):
 		motion.y = min(motion.y + ACCELERATION, MAX_SPEED)
+		stepping = true
 	else:
 		motion.y = lerp(motion.y,0,0.1)
 	
 	if Input.is_action_pressed("ui_left"):
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)		
+		stepping = true
 	elif Input.is_action_pressed("ui_right"):
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)	
+		stepping = true
 	else:
 		motion.x = lerp(motion.x,0,0.1)
 	dir = (get_global_mouse_position() - position).normalized()
@@ -50,6 +60,14 @@ func _physics_process(delta):
 	look_at(get_global_mouse_position())
 	move_and_slide(motion)
 	emit_signal("move")	
+	
+	if stepping:
+		stepCounter -= 1
+		
+	if stepCounter <= 0:
+		stepCounter = 20
+		get_tree().root.get_node("World/Step").play()
+	
 	pass
 
 
