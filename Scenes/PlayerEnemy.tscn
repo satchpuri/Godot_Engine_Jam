@@ -3,13 +3,12 @@
 [ext_resource path="res://Scenes/Camera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Enemy.gd" type="Script" id=4]
-[ext_resource path="res://Sounds/Alert.wav" type="AudioStream" id=5]
-[ext_resource path="res://Sounds/BGM.wav" type="AudioStream" id=6]
-[ext_resource path="res://Sounds/Footstep.wav" type="AudioStream" id=7]
-[ext_resource path="res://Sounds/Coin.wav" type="AudioStream" id=8]
-[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/Door.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Sounds/Alert.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/BGM.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/Footstep.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/Coin.wav" type="AudioStream" id=7]
+[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Door.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -20,6 +19,121 @@ extents = Vector2( 32, 32 )
 
 custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
+
+[sub_resource type="GDScript" id=4]
+
+script/source = "extends KinematicBody2D
+
+const RED = Color(1.0, 0, 0, 0.4)
+const GREEN = Color(0, 1.0, 0, 0.4)
+const DETECT_RADIUS = 400
+const FOV = 70
+
+enum EnemyState {
+	Patrol,
+	Alert,
+	Attack
+}
+
+var state = EnemyState.Patrol
+var draw_color = GREEN
+
+var soundFlag = false
+var angle = -90
+var currrentDirection = Vector2()
+var pathUpdateTimer = 0
+var currentPatrol = \"A\"
+var currentPatrolIndex = 0
+var patrol = null
+var health = 100
+
+export var patrolPoints = []
+var patrols = {};
+onready var nav = get_parent().get_node(\"Navigation2D\")
+onready var player = get_parent().get_node(\"Player\")
+var path = []
+
+func _ready():
+	loadPatrols()
+	currentPatrol = patrolPoints[0]
+	pass
+
+func loadPatrols():
+	var i=0
+	while(i<patrolPoints.size()):
+		patrols[patrolPoints[i]] = get_parent().get_node(patrolPoints[i])
+		i = i+1
+
+func _process(delta):
+	update_state()
+	update()
+	if state == EnemyState.Patrol:
+		go_to_target(patrol,delta)	# go to next patrol position
+	elif state == EnemyState.Alert:
+		pathUpdateTimer += delta
+		go_to_target(player,delta)
+		if(pathUpdateTimer>1):
+			pathUpdateTimer = 0
+			recalculate_path(player) #Update path to player once every second
+	pass
+
+func update_state():		
+	var playerDirection = (player.position - position).normalized()
+	var angleBetween = rad2deg(currrentDirection.angle_to(playerDirection));
+	if position.distance_to(player.position)<DETECT_RADIUS && abs(angleBetween) < FOV/2:
+		draw_color = RED
+		state = EnemyState.Alert
+		if !soundFlag:
+			#get_tree().root.get_node(\"World/Alert\").play()
+			soundFlag = true
+	else:
+		soundFlag = false
+		patrol = get_current_patrol()
+		if position.distance_to(patrol.position)<2:
+			reassign_patrol_point()
+		draw_color = GREEN
+		#state = EnemyState.Patrol
+	pass
+
+func get_current_patrol():
+	return patrols[patrolPoints[currentPatrolIndex]]
+
+func reassign_patrol_point():
+	currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.size()
+
+
+func recalculate_path(target):
+	path = nav.get_simple_path(position,target.position)
+
+#Calculates path to target and moves towards target
+func go_to_target(target, delta):
+	if path.size()==0 and position.distance_to(target.position)>2 :
+		path = nav.get_simple_path(position,target.position)
+	elif path.size()>0:	
+		var d = position.distance_to(path[0])	
+		if d>2:			
+			var dir = (path[0] - position).normalized()
+			currrentDirection = dir	
+			position = position.linear_interpolate(path[0], 150*delta/d)					
+			rotation_degrees = lerp(rotation_degrees, 90 + rad2deg(dir.angle()), 0.1)
+		else:
+			path.remove(0)
+	pass
+
+func _draw():
+	draw_circle_arc_poly(Vector2(), DETECT_RADIUS,  angle - FOV/2, angle + FOV/2, draw_color)
+	pass
+	
+func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
+    var nb_points = 32
+    var points_arc = PoolVector2Array()
+    points_arc.push_back(center)
+    var colors = PoolColorArray([color])
+
+    for i in range(nb_points+1):
+        var angle_point = angle_from + i*(angle_to-angle_from)/nb_points
+        points_arc.push_back(center + Vector2( cos( deg2rad(angle_point) ), sin( deg2rad(angle_point) ) ) * radius)
+    draw_polygon(points_arc, colors)"
 
 [sub_resource type="NavigationPolygon" id=3]
 
@@ -102,11 +216,12 @@ input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
-script = ExtResource( 4 )
+script = SubResource( 4 )
 _sections_unfolded = [ "Visibility" ]
 __meta__ = {
 "_edit_group_": true
 }
+patrolPoints = [ "PatrolA", "PatrolB" ]
 
 [node name="Sprite" type="Sprite" parent="Enemy" index="0"]
 
@@ -137,7 +252,7 @@ position = Vector2( 896, 448 )
 
 [node name="Alert" type="AudioStreamPlayer" parent="." index="6"]
 
-stream = ExtResource( 5 )
+stream = ExtResource( 4 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -145,7 +260,7 @@ bus = "Master"
 
 [node name="BGM" type="AudioStreamPlayer" parent="." index="7"]
 
-stream = ExtResource( 6 )
+stream = ExtResource( 5 )
 volume_db = 0.0
 autoplay = true
 mix_target = 0
@@ -153,7 +268,7 @@ bus = "Master"
 
 [node name="Step" type="AudioStreamPlayer" parent="." index="8"]
 
-stream = ExtResource( 7 )
+stream = ExtResource( 6 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -161,19 +276,19 @@ bus = "Master"
 
 [node name="Coin_sound" type="AudioStreamPlayer" parent="." index="9"]
 
-stream = ExtResource( 8 )
+stream = ExtResource( 7 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="Coin" parent="." index="10" instance=ExtResource( 9 )]
+[node name="Coin" parent="." index="10" instance=ExtResource( 8 )]
 
-[node name="Coin2" parent="." index="11" instance=ExtResource( 9 )]
+[node name="Coin2" parent="." index="11" instance=ExtResource( 8 )]
 
 position = Vector2( 442.753, 157.428 )
 
-[node name="Door" parent="." index="12" instance=ExtResource( 10 )]
+[node name="Door" parent="." index="12" instance=ExtResource( 9 )]
 
 [connection signal="move" from="Player" to="." method="_on_Player_move"]
 
