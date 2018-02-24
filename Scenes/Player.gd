@@ -18,7 +18,7 @@ var draw_color = GREEN
 const DETECT_RADIUS = 200
 const FOV = 80
 var angle = 90
-
+var isAttacking = false
 signal move
 
 var stepCounter = 20
@@ -61,8 +61,16 @@ func _physics_process(delta):
 	move_and_slide(motion)
 	emit_signal("move")	
 	
+	if Input.is_action_pressed("attack"):
+		$Sprite.play("Attack")
+		isAttacking = true
+		
+	
 	if stepping:
 		stepCounter -= 1
+		$Sprite.play("Move")
+	else:
+		$Sprite.play("Idle")
 		
 	if stepCounter <= 0:
 		stepCounter = 20
