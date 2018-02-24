@@ -19,16 +19,26 @@ var angle = -90
 var currrentDirection = Vector2()
 var pathUpdateTimer = 0
 var currentPatrol = "A"
+var currentPatrolIndex = 0
 var patrol = null
+var health = 100
 
+export var patrolPoints = []
+var patrols = {};
 onready var nav = get_parent().get_node("Navigation2D")
-onready var patrolA = get_parent().get_node("PatrolA")
-onready var patrolB = get_parent().get_node("PatrolB")
 onready var player = get_parent().get_node("Player")
 var path = []
 
 func _ready():
+	loadPatrols()
+	currentPatrol = patrolPoints[0]
 	pass
+
+func loadPatrols():
+	var i=0
+	while(i<patrolPoints.size()):
+		patrols[patrolPoints[i]] = get_parent().get_node(patrolPoints[i])
+		i = i+1
 
 func _process(delta):
 	update_state()
@@ -50,25 +60,23 @@ func update_state():
 		draw_color = RED
 		state = EnemyState.Alert
 		if !soundFlag:
-			get_tree().root.get_node("World/Alert").play()
+			#get_tree().root.get_node("World/Alert").play()
 			soundFlag = true
 	else:
 		soundFlag = false
-		if(currentPatrol == "A"):
-			patrol = patrolA
-		else:
-			patrol = patrolB
+		patrol = get_current_patrol()
 		if position.distance_to(patrol.position)<2:
 			reassign_patrol_point()
 		draw_color = GREEN
 		#state = EnemyState.Patrol
 	pass
 
+func get_current_patrol():
+	return patrols[patrolPoints[currentPatrolIndex]]
+
 func reassign_patrol_point():
-	if currentPatrol == "A":
-		currentPatrol = "B"
-	else:
-		currentPatrol = "A"
+	currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.size()
+
 
 func recalculate_path(target):
 	path = nav.get_simple_path(position,target.position)
