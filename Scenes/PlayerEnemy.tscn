@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Camera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Sounds/BGM.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sounds/Footstep.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/Coin.wav" type="AudioStream" id=8]
+[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Counter.gd" type="Script" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -38,7 +40,7 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 2 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 __meta__ = {
 "_edit_group_": true
 }
@@ -49,7 +51,7 @@ rotation = 1.5708
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" index="1"]
+[node name="PlayerCollision" type="CollisionShape2D" parent="Player" index="1"]
 
 shape = SubResource( 1 )
 
@@ -92,7 +94,6 @@ shape = SubResource( 2 )
 
 [node name="Enemy" type="KinematicBody2D" parent="." index="2"]
 
-editor/display_folded = true
 modulate = Color( 0.964844, 0.964844, 0.964844, 1 )
 position = Vector2( 192, 192 )
 input_pickable = false
@@ -156,13 +157,23 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="Coin" type="AudioStreamPlayer" parent="." index="9"]
+[node name="Coin_sound" type="AudioStreamPlayer" parent="." index="9"]
 
 stream = ExtResource( 8 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
 bus = "Master"
+
+[node name="Coin" parent="." index="10" instance=ExtResource( 9 )]
+
+[node name="Coin2" parent="." index="11" instance=ExtResource( 9 )]
+
+position = Vector2( 442.753, 157.428 )
+
+[node name="Counter" type="Node" parent="." index="12"]
+
+script = ExtResource( 10 )
 
 [connection signal="move" from="Player" to="." method="_on_Player_move"]
 

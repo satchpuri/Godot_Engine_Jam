@@ -33,8 +33,8 @@ func _ready():
 #	# Update game logic here.
 #	pass
 
-func _input(event):
-	if event.is_action_pressed("ui_accept"): get_tree().root.get_node("World/Coin").play()
+#func _input(event):
+	#if event.is_action_pressed("ui_accept"): get_tree().root.get_node("World/Coin_sound").play()
 
 func _physics_process(delta):
 	var stepping = false
