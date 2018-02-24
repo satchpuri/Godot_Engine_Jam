@@ -5,8 +5,10 @@ extends Sprite
 # var b = "textvar"
 
 var collected = false
+var door
 
 func _ready():
+	door = get_tree().root.get_node("World/Door")
 	# Called every time the node is added to the scene.
 	# Initialization here
 	pass
@@ -18,6 +20,8 @@ func _process(delta):
 	if transform.get_origin().distance_to(player.transform.get_origin()) < 60 && !collected:
 		collected = true
 		get_tree().root.get_node("World/Coin_sound").play()
-		get_tree().root.get_node("World/Counter").remaining -= 1
+		door.remaining -= 1
+		if door.remaining == 0:
+			door.unlock()
 		hide()
 #	pass

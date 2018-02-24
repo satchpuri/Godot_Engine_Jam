@@ -1,0 +1,6 @@
+EarthBound - Dr. Andonuts's Lab
+Ed sprite from Ed Edd 'n Eddy: The Mis-Edventures, ripped by Video_Pochi - Spriters-resource.com
+Step sound - https://freesound.org/people/Yoyodaman234/sounds/166507/
+Coin sound - https://freesound.org/people/ProjectsU012/sounds/341695/
+Alert sound - https://www.myinstants.com/instant/metal-gear-solid-alert/
+Coin sprite - https://www.tutpad.com/tutorials/how-to-create-an-animated-pixel-art-coin
