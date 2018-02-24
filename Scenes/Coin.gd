@@ -9,6 +9,7 @@ var door
 
 func _ready():
 	door = get_tree().root.get_node("World/Door")
+	door.remaining += 1
 	# Called every time the node is added to the scene.
 	# Initialization here
 	pass
