@@ -49,13 +49,12 @@ func _physics_process(delta):
 	angle = dir.angle()#90 - rad2deg(dir.angle())
 	look_at(get_global_mouse_position())
 	move_and_slide(motion)
-	emit_signal("move")
-	
+	emit_signal("move")	
 	pass
 
 
 func _draw():
-	draw_circle_arc_poly(Vector2(), DETECT_RADIUS,  angle - FOV/2, angle + FOV/2, draw_color)
+	#draw_circle_arc_poly(Vector2(), DETECT_RADIUS,  angle - FOV/2, angle + FOV/2, draw_color)
 	pass
 	
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
