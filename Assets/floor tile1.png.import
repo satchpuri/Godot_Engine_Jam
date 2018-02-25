@@ -1,0 +1,32 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/floor tile1.png-49ca336a36d4aff4c4ac0db5b02de18f.stex"
+
+[deps]
+
+source_file="res://Assets/floor tile1.png"
+source_md5="1766a91f3afa61f8227fa0e9f9c4e22e"
+
+dest_files=[ "res://.import/floor tile1.png-49ca336a36d4aff4c4ac0db5b02de18f.stex" ]
+dest_md5="550cb06d53bf20be4823b3289ce68e7d"
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
