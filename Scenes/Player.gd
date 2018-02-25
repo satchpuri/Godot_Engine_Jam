@@ -62,9 +62,8 @@ func _physics_process(delta):
 	if Input.is_action_pressed("attack") and !isAttacking:
 		isAttacking = true
 		if(ray_cast.is_colliding()):
-			print("Test")
 			var collider = ray_cast.get_collider()
-			if collider.is_in_group("Enemy"):# and global_position.distance_to(collider.position) < 90:
+			if collider.is_in_group("Enemy") and global_position.distance_to(collider.position) < 90:
 				print("Hit Enemy")
 				collider.inflict_damage(100)
 	
