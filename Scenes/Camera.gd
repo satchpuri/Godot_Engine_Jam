@@ -8,6 +8,11 @@ onready var last_player_pos = player.position
 func _ready():
 	pass
 
+func _process(delta):
+	if player.isDead:
+		$CanvasLayer/Message.text = "Game Over!"
+		$CanvasLayer/Message.align = Label.ALIGN_CENTER
+
 func _on_Player_move():
 	var player_offset = last_player_pos - player.position
 	last_player_pos = player.position

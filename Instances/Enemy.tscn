@@ -1,0 +1,153 @@
+[gd_scene load_steps=35 format=2]
+
+[ext_resource path="res://Scenes/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Police/default/1.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Police/default/2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Police/default/3.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Police/default/4.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Police/default/5.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Police/default/6.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Police/default/7.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Police/default/8.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Police/default/9.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Police/default/10.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Police/default/11.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Police/default/12.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Police/default/13.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/Police/default/14.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/Police/default/15.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Police/default/16.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Police/default/17.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Police/default/18.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/Police/default/19.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/Police/attack/20.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/Police/attack/21.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/Police/attack/22.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/Police/attack/23.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Police/attack/24.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Police/attack/25.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Police/attack/26.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Police/attack/27.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/Police/attack/28.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Police/attack/30.png" type="Texture" id=30]
+
+[sub_resource type="SpriteFrames" id=6]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "move",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "attack",
+"speed": 8.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 32 )
+
+[sub_resource type="CanvasItemMaterial" id=7]
+
+render_priority = 0
+blend_mode = 0
+light_mode = 0
+
+[sub_resource type="StyleBoxFlat" id=8]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 0.96875, 0, 0, 1 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
+
+[node name="Enemy" type="KinematicBody2D"]
+
+editor/display_folded = true
+modulate = Color( 0.964844, 0.964844, 0.964844, 1 )
+position = Vector2( 192, 192 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+__meta__ = {
+"_edit_group_": true
+}
+patrolPoints = [ "PatrolA", "PatrolB" ]
+
+[node name="Sprite" type="AnimatedSprite" parent="." index="0"]
+
+rotation = 3.14159
+scale = Vector2( 0.14, 0.14 )
+frames = SubResource( 6 )
+animation = "move"
+frame = 2
+playing = true
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 2 )
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="2"]
+
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 0, 50 )
+collision_mask = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="." index="3"]
+
+material = SubResource( 7 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -32.0
+margin_top = 32.0
+margin_right = 32.0
+margin_bottom = 48.0
+rect_scale = Vector2( 1, 0.5 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 0
+custom_styles/fg = SubResource( 8 )
+custom_colors/font_color_shadow = Color( 0.769531, 0.240479, 0.240479, 1 )
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+percent_visible = false
+_sections_unfolded = [ "Material", "Percent", "Visibility", "custom_colors", "custom_styles" ]
+
+

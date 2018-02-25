@@ -8,12 +8,14 @@ const FOV = 70
 enum EnemyState {
 	Patrol,
 	Alert,
-	Attack
+	Attack,
+	Death
 }
 
 var state = EnemyState.Patrol
 var draw_color = GREEN
 
+var soundFlag = false
 var angle = -90
 var currrentDirection = Vector2()
 var pathUpdateTimer = 0
@@ -21,11 +23,13 @@ var currentPatrol = "A"
 var currentPatrolIndex = 0
 var patrol = null
 var health = 100
+var isAttacking = false
 
-export var patrolPoints = []
+export var patrolPoints = ["PatrolA", "PatrolB"]
 var patrols = {};
 onready var nav = get_parent().get_node("Navigation2D")
 onready var player = get_parent().get_node("Player")
+onready var health_bar = $ProgressBar
 var path = []
 
 func _ready():
@@ -41,43 +45,66 @@ func loadPatrols():
 
 func _process(delta):
 	update_state()
-	update()
+	update()	
+	update_animation()
 	if state == EnemyState.Patrol:
 		go_to_target(patrol,delta)	# go to next patrol position
-	elif state == EnemyState.Alert:
+	elif state == EnemyState.Alert || state == EnemyState.Attack:
 		pathUpdateTimer += delta
 		go_to_target(player,delta)
 		if(pathUpdateTimer>1):
 			pathUpdateTimer = 0
 			recalculate_path(player) #Update path to player once every second
+		if state == EnemyState.Attack:
+			attack_player()
+		else:
+			isAttacking = false
 	pass
 
-func update_state():		
+func attack_player():	
+	var frameCount = $Sprite.frames.get_frame_count("attack")
+	if $Sprite.frame == frameCount/2 and $Sprite.animation == "attack" && !isAttacking:
+		isAttacking = true
+		player.inflict_damage(50)
+	pass
+
+func update_state():	
+	health_bar.value = health	
+	if state == EnemyState.Death:
+		$CollisionShape2D.disabled = true
+		$Sprite.stop()
+		return
+		pass
 	var playerDirection = (player.position - position).normalized()
 	var angleBetween = rad2deg(currrentDirection.angle_to(playerDirection));
 	if position.distance_to(player.position)<DETECT_RADIUS && abs(angleBetween) < FOV/2:
 		draw_color = RED
-
-		if state != EnemyState.Alert:
-			get_tree().root.get_node("World/Alert").play()
 		state = EnemyState.Alert
+		if position.distance_to(player.position)< 80:
+			state = EnemyState.Attack
+		if !soundFlag:
+			get_tree().root.get_node("World/Alert").play()
+			soundFlag = true
 	else:
-		if(currentPatrol == "A"):
-			patrol = patrolA
-		else:
-			patrol = patrolB
+		#soundFlag = false
+		patrol = get_current_patrol()
 		if position.distance_to(patrol.position)<2:
 			reassign_patrol_point()
 		draw_color = GREEN
 		#state = EnemyState.Patrol
 	pass
 
+func update_animation():
+	if state == EnemyState.Patrol || state == EnemyState.Alert:
+		$Sprite.play("move")
+	elif state == EnemyState.Attack:
+		$Sprite.play("attack")
+
 func get_current_patrol():
 	return patrols[patrolPoints[currentPatrolIndex]]
 
 func reassign_patrol_point():
 	currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.size()
-
 
 func recalculate_path(target):
 	path = nav.get_simple_path(position,target.position)
@@ -97,8 +124,16 @@ func go_to_target(target, delta):
 			path.remove(0)
 	pass
 
+func inflict_damage(amount):
+	health -= amount
+	if health<=0:
+		state = EnemyState.Death
+		print("Dead")
+		update()
+
 func _draw():
-	draw_circle_arc_poly(Vector2(), DETECT_RADIUS,  angle - FOV/2, angle + FOV/2, draw_color)
+	if state != EnemyState.Death:
+		draw_circle_arc_poly(Vector2(), DETECT_RADIUS,  angle - FOV/2, angle + FOV/2, draw_color)
 	pass
 	
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):

@@ -19,25 +19,22 @@ const DETECT_RADIUS = 200
 const FOV = 80
 var angle = 90
 var isAttacking = false
+var stepping = false
+var isDead = false
+var health = 100
 signal move
 
 var stepCounter = 20
+onready var ray_cast = $RayCast2D
+onready var health_bar = $ProgressBar
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
-
-#func _input(event):
-	#if event.is_action_pressed("ui_accept"): get_tree().root.get_node("World/Coin_sound").play()
-
-func _physics_process(delta):
-	var stepping = false
+func _physics_process(delta):	
+	health_bar.value = health
+	if isDead:
+		return
 	if Input.is_action_pressed("ui_up"):
 		motion.y = max(motion.y - ACCELERATION, -MAX_SPEED)	
 		stepping = true
@@ -60,26 +57,47 @@ func _physics_process(delta):
 	look_at(get_global_mouse_position())
 	move_and_slide(motion)
 	emit_signal("move")	
-	
-	if Input.is_action_pressed("attack"):
-		$Sprite.play("Attack")
+	ray_cast.cast_to = position + dir * 0.1 
+
+	if Input.is_action_pressed("attack") and !isAttacking:
 		isAttacking = true
-		
+		if(ray_cast.is_colliding()):
+			print("Test")
+			var collider = ray_cast.get_collider()
+			if collider.is_in_group("Enemy"):# and global_position.distance_to(collider.position) < 90:
+				print("Hit Enemy")
+				collider.inflict_damage(100)
 	
 	if stepping:
 		stepCounter -= 1
+	
+	if stepCounter <= 0:
+		stepCounter = 20
+		get_tree().root.get_node("World/Step").play()
+	else:
+		stepping = false
+	update_animation()
+	pass
+
+func update_animation():	
+	if isAttacking:
+		#print($Sprite.playing)
+		$Sprite.play("Attack")
+	elif stepping:
 		$Sprite.play("Move")
 	else:
 		$Sprite.play("Idle")
 		
-	if stepCounter <= 0:
-		stepCounter = 20
-		get_tree().root.get_node("World/Step").play()
-	
-	pass
-
+func inflict_damage(amount):
+	health -= amount
+	if health<=0:
+		health = 0
+		isDead = true
+		#get_tree().paused = true
+		get_parent().get_node("BGM").stop()
 
 func _draw():
+	draw_line($Sprite.position, position + dir, GREEN)
 	#draw_circle_arc_poly(Vector2(), DETECT_RADIUS,  angle - FOV/2, angle + FOV/2, draw_color)
 	pass
 	
@@ -94,3 +112,7 @@ func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
         points_arc.push_back(center + Vector2( cos( deg2rad(angle_point) ), sin( deg2rad(angle_point) ) ) * radius)
     draw_polygon(points_arc, colors)
 	
+
+func _on_Sprite_animation_finished():
+	isAttacking = false
+	pass # replace with function body
