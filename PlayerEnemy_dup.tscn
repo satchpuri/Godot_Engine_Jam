@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Camera.gd" type="Script" id=1]
 [ext_resource path="res://Assets/floortiles2.0.res" type="TileSet" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Sounds/Coin.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Tileset2.0.res" type="TileSet" id=9]
 [ext_resource path="res://Assets/goldCoin1.png" type="Texture" id=10]
+[ext_resource path="res://Instances/CanvasLayer.tscn" type="PackedScene" id=11]
 
 [sub_resource type="NavigationPolygon" id=2]
 
@@ -181,6 +182,8 @@ position = Vector2( 896, 256 )
 
 [node name="Patrol" type="Node" parent="." index="16"]
 
+editor/display_folded = true
+
 [node name="PatrolA" type="Node2D" parent="Patrol" index="0"]
 
 position = Vector2( 250, 240 )
@@ -189,7 +192,12 @@ position = Vector2( 250, 240 )
 
 position = Vector2( 896, 256 )
 
+[node name="CanvasLayer" parent="." index="17" instance=ExtResource( 11 )]
+
+editor/display_folded = false
+
 [connection signal="move" from="Player" to="." method="_on_Player_move"]
 
 
 [editable path="Player"]
+[editable path="CanvasLayer"]
