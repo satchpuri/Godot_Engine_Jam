@@ -6,9 +6,10 @@ extends Sprite
 
 var collected = false
 var door
+var total = 13
 
 func _ready():
-	door = get_tree().root.get_node("World/Door")
+	door = get_parent().get_node("exit")
 	door.remaining += 1
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -22,7 +23,7 @@ func _process(delta):
 		collected = true
 		get_tree().root.get_node("World/Coin_sound").play()
 		door.remaining -= 1
-		if door.remaining == 0:
+		if door.remaining == (total - 3):
 			door.unlock()
 		hide()
 #	pass

@@ -22,6 +22,7 @@ var isAttacking = false
 var stepping = false
 var isDead = false
 var health = 100
+var attackTime = 0
 signal move
 
 var stepCounter = 20
@@ -33,6 +34,7 @@ func _ready():
 
 func _physics_process(delta):	
 	health_bar.value = health
+	attackTime += delta
 	if isDead:
 		return
 	if Input.is_action_pressed("ui_up"):
@@ -60,12 +62,16 @@ func _physics_process(delta):
 	ray_cast.cast_to = position + dir * 0.1 
 
 	if Input.is_action_pressed("attack") and !isAttacking:
+		attackTime = 0
 		isAttacking = true
 		if(ray_cast.is_colliding()):
 			var collider = ray_cast.get_collider()
 			if collider.is_in_group("Enemy") and global_position.distance_to(collider.position) < 90:
 				print("Hit Enemy")
 				collider.inflict_damage(100)
+	
+	if attackTime > 1.5:
+		isAttacking = false
 	
 	if stepping:
 		stepCounter -= 1

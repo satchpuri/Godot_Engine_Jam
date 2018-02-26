@@ -3,13 +3,14 @@ extends Node
 
 onready var screen_size = Vector2(OS.get_screen_size().x, OS.get_screen_size().y)
 onready var player = get_node("Player")
+onready var exit = get_node("exit")
 onready var last_player_pos = player.position
 
 func _ready():
 	pass
 
 func _process(delta):
-	if player.isDead:
+	if player.isDead or exit.isOver:
 		$CanvasLayer/Message.text = "Game Over!"
 		$CanvasLayer/Message.align = Label.ALIGN_CENTER
 

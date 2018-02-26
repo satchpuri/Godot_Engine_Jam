@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scenes/Camera.gd" type="Script" id=1]
 [ext_resource path="res://Assets/floortiles2.0.res" type="TileSet" id=2]
@@ -8,14 +8,15 @@
 [ext_resource path="res://Sounds/Coin.wav" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Tileset2.0.res" type="TileSet" id=7]
 [ext_resource path="res://Assets/exit.png" type="Texture" id=8]
-[ext_resource path="res://Instances/CanvasLayer.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Instances/Enemy.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Instances/Player.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Textures/white.png" type="Texture" id=12]
-[ext_resource path="res://Textures/white circle reversed.png" type="Texture" id=13]
-[ext_resource path="res://Scenes/Door.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Assets/money-bag-308983_640.png" type="Texture" id=16]
+[ext_resource path="res://Scenes/Door.gd" type="Script" id=9]
+[ext_resource path="res://Instances/CanvasLayer.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Instances/Enemy.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Instances/Player.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Textures/white.png" type="Texture" id=13]
+[ext_resource path="res://Textures/white circle reversed.png" type="Texture" id=14]
+[ext_resource path="res://Scenes/Door.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/money-bag-308983_640.png" type="Texture" id=17]
 
 [sub_resource type="NavigationPolygon" id=1]
 
@@ -168,9 +169,10 @@ tile_data = PoolIntArray( -2949079, 16, 0, -2949070, 16, 0, -2490330, 16, 0, -13
 
 [node name="exit" type="Sprite" parent="." index="11"]
 
-editor/display_folded = true
 position = Vector2( 608.052, -3838 )
 texture = ExtResource( 8 )
+script = ExtResource( 9 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="exit" index="0"]
 
@@ -186,11 +188,11 @@ bounce = 0.0
 
 shape = SubResource( 2 )
 
-[node name="CanvasLayer" parent="." index="12" instance=ExtResource( 9 )]
+[node name="CanvasLayer" parent="." index="12" instance=ExtResource( 10 )]
 
 [node name="Enemy" parent="." index="13" groups=[
 "Enemy",
-] instance=ExtResource( 10 )]
+] instance=ExtResource( 11 )]
 
 editor/display_folded = false
 z_index = 2
@@ -200,10 +202,10 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 show_behind_parent = true
 z_index = 1
-frame = 5
+frame = 10
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
-[node name="Player" parent="." index="14" instance=ExtResource( 11 )]
+[node name="Player" parent="." index="14" instance=ExtResource( 12 )]
 
 editor/display_folded = false
 position = Vector2( 673.991, 558.703 )
@@ -213,7 +215,7 @@ position = Vector2( 673.991, 558.703 )
 modulate = Color( 0, 0, 0, 1 )
 light_mask = 2
 scale = Vector2( 30, 30 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Light2D" type="Light2D" parent="Player" index="5"]
@@ -221,7 +223,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 scale = Vector2( 5, 5 )
 enabled = true
 editor_only = false
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 offset = Vector2( 0, 0 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -242,96 +244,97 @@ shadow_filter_smooth = 0.0
 shadow_item_cull_mask = 1
 _sections_unfolded = [ "Range", "Transform", "Z Index" ]
 
-[node name="Door" parent="." index="15" instance=ExtResource( 14 )]
+[node name="Door" parent="." index="15" instance=ExtResource( 15 )]
 
 editor/display_folded = false
 modulate = Color( 1, 1, 1, 0.490196 )
 position = Vector2( 607.745, -3837.61 )
 scale = Vector2( 2.99822, 2.04831 )
-_sections_unfolded = [ "Visibility" ]
+script = null
+_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin" parent="." index="16" instance=ExtResource( 15 )]
+[node name="Coin" parent="." index="16" instance=ExtResource( 16 )]
 
 position = Vector2( 649.432, 343.909 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin2" parent="." index="17" instance=ExtResource( 15 )]
+[node name="Coin2" parent="." index="17" instance=ExtResource( 16 )]
 
 position = Vector2( -523.278, 312.255 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin3" parent="." index="18" instance=ExtResource( 15 )]
+[node name="Coin3" parent="." index="18" instance=ExtResource( 16 )]
 
 position = Vector2( -880.768, -599.092 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin4" parent="." index="19" instance=ExtResource( 15 )]
+[node name="Coin4" parent="." index="19" instance=ExtResource( 16 )]
 
 position = Vector2( 2173, -697.276 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin5" parent="." index="20" instance=ExtResource( 15 )]
+[node name="Coin5" parent="." index="20" instance=ExtResource( 16 )]
 
 position = Vector2( 1425.01, -2013.99 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin6" parent="." index="21" instance=ExtResource( 15 )]
+[node name="Coin6" parent="." index="21" instance=ExtResource( 16 )]
 
 position = Vector2( -791.145, -1958.35 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin7" parent="." index="22" instance=ExtResource( 15 )]
+[node name="Coin7" parent="." index="22" instance=ExtResource( 16 )]
 
 position = Vector2( 503.93, -2523.98 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin8" parent="." index="23" instance=ExtResource( 15 )]
+[node name="Coin8" parent="." index="23" instance=ExtResource( 16 )]
 
 position = Vector2( 618.292, -2523.98 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin9" parent="." index="24" instance=ExtResource( 15 )]
+[node name="Coin9" parent="." index="24" instance=ExtResource( 16 )]
 
 position = Vector2( 723.381, -2520.89 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin12" parent="." index="25" instance=ExtResource( 15 )]
+[node name="Coin12" parent="." index="25" instance=ExtResource( 16 )]
 
-position = Vector2( 723.381, -2520.89 )
+position = Vector2( 620, -2790 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin10" parent="." index="26" instance=ExtResource( 15 )]
+[node name="Coin10" parent="." index="26" instance=ExtResource( 16 )]
 
 position = Vector2( 2967.35, -2938.16 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin11" parent="." index="27" instance=ExtResource( 15 )]
+[node name="Coin11" parent="." index="27" instance=ExtResource( 16 )]
 
 position = Vector2( 1961.52, 1409.86 )
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [connection signal="move" from="Player" to="." method="_on_Player_move"]
