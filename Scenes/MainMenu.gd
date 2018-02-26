@@ -18,7 +18,7 @@ func _process(delta):
 
 
 func _on_Play_Button_pressed():
-	get_tree().change_scene("res://Scenes/Main.tscn")
+	get_tree().change_scene("res://PlayerEnemy_dup.tscn")
 
 
 func _on_Credits_Button_pressed():

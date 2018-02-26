@@ -33,7 +33,7 @@ animations = [ {
 } ]
 _sections_unfolded = [ "Resource" ]
 
-[node name="UI" type="HBoxContainer"]
+[node name="UI" type="HBoxContainer" index="0"]
 
 material = SubResource( 1 )
 anchor_left = 0.0
