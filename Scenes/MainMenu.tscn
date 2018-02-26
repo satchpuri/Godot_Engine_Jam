@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://Textures/title.png" type="Texture" id=2]
-[ext_resource path="res://Textures/play.png" type="Texture" id=3]
-[ext_resource path="res://Textures/play_hover.png" type="Texture" id=4]
+[ext_resource path="res://Textures/flat,1000x1000,075,f (1).jpg" type="Texture" id=2]
+[ext_resource path="res://Textures/title.png" type="Texture" id=3]
+[ext_resource path="res://Textures/play.png" type="Texture" id=4]
+[ext_resource path="res://Textures/play_hover.png" type="Texture" id=5]
+[ext_resource path="res://Textures/Credits.png" type="Texture" id=6]
+[ext_resource path="res://Textures/credits_hover.png" type="Texture" id=7]
+[ext_resource path="res://Textures/exit.png" type="Texture" id=8]
+[ext_resource path="res://Textures/exit_hover.png" type="Texture" id=9]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -18,8 +23,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1290.0
-margin_bottom = 730.0
+margin_right = 1281.0
+margin_bottom = 720.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 mouse_default_cursor_shape = 0
@@ -29,14 +34,23 @@ alignment = 0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material" ]
 
-[node name="Buffer Space" type="Control" parent="." index="0"]
+[node name="Background" type="Sprite" parent="." index="0"]
 
+modulate = Color( 1, 1, 1, 0.0773333 )
+position = Vector2( 640.875, 357.95 )
+scale = Vector2( 1.28159, 1.1789 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="Buffer Space" type="Control" parent="." index="1"]
+
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 341.0
-margin_bottom = 730.0
+margin_right = 336.0
+margin_bottom = 720.0
 rect_min_size = Vector2( 100, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
@@ -45,15 +59,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect", "Size Flags" ]
 
-[node name="CenterContainer" type="CenterContainer" parent="." index="1"]
+[node name="CenterContainer" type="CenterContainer" parent="." index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 345.0
-margin_right = 945.0
-margin_bottom = 730.0
+margin_right = 638.0
+margin_bottom = 720.0
 rect_min_size = Vector2( 600, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
@@ -69,10 +82,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 50.0
-margin_top = 163.0
-margin_right = 550.0
-margin_bottom = 567.0
+margin_left = 69.0
+margin_top = 72.0
+margin_right = 569.0
+margin_bottom = 647.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 mouse_default_cursor_shape = 0
@@ -93,7 +106,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 stretch_mode = 0
 
 [node name="Buttons" type="VBoxContainer" parent="CenterContainer/TitleContainer" index="1"]
@@ -103,48 +116,93 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 204.0
-margin_right = 500.0
-margin_bottom = 404.0
+margin_right = 363.0
+margin_bottom = 575.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
+size_flags_horizontal = 2
 size_flags_vertical = 1
 alignment = 0
+_sections_unfolded = [ "Rect", "Size Flags" ]
 
-[node name="TextureButton" type="TextureButton" parent="CenterContainer/TitleContainer/Buttons" index="0"]
+[node name="Play Button" type="TextureButton" parent="CenterContainer/TitleContainer/Buttons" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -15.0
-margin_top = -17.0
-margin_right = 485.0
-margin_bottom = 183.0
+margin_right = 363.0
+margin_bottom = 121.0
 rect_pivot_offset = Vector2( 0, 0 )
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 size_flags_vertical = 0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 3 )
-texture_hover = ExtResource( 4 )
-_sections_unfolded = [ "Size Flags", "Textures" ]
+texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
+_sections_unfolded = [ "Rect", "Size Flags", "Textures" ]
 
-[node name="Buffer Space2" type="Control" parent="." index="2"]
+[node name="Credits Button" type="TextureButton" parent="CenterContainer/TitleContainer/Buttons" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 949.0
-margin_right = 1290.0
-margin_bottom = 730.0
+margin_top = 125.0
+margin_right = 363.0
+margin_bottom = 246.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 6 )
+texture_hover = ExtResource( 7 )
+_sections_unfolded = [ "Size Flags", "Textures" ]
+
+[node name="Exit Button" type="TextureButton" parent="CenterContainer/TitleContainer/Buttons" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 250.0
+margin_right = 363.0
+margin_bottom = 371.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 8 )
+texture_hover = ExtResource( 9 )
+_sections_unfolded = [ "Size Flags", "Textures" ]
+
+[node name="Buffer Space2" type="Control" parent="." index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 642.0
+margin_right = 1281.0
+margin_bottom = 720.0
 rect_min_size = Vector2( 150, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
@@ -152,5 +210,11 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect", "Size Flags" ]
+
+[connection signal="pressed" from="CenterContainer/TitleContainer/Buttons/Play Button" to="." method="_on_Play_Button_pressed"]
+
+[connection signal="pressed" from="CenterContainer/TitleContainer/Buttons/Credits Button" to="." method="_on_Credits_Button_pressed"]
+
+[connection signal="pressed" from="CenterContainer/TitleContainer/Buttons/Exit Button" to="." method="_on_Exit_Button_pressed"]
 
 

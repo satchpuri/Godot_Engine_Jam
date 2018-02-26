@@ -7,10 +7,10 @@ path="res://.import/play.png-cac1821ecbf6c226ddee9d1d5d224a0f.stex"
 [deps]
 
 source_file="res://Textures/play.png"
-source_md5="77886033006d8813fcfac31a159162b4"
+source_md5="d5e0b9f9721aa7d0428f4c244d32e40b"
 
 dest_files=[ "res://.import/play.png-cac1821ecbf6c226ddee9d1d5d224a0f.stex" ]
-dest_md5="547582aed72f5758b412a6389bf8885e"
+dest_md5="863ea187a3367d4139c3a8ad6ac1cf86"
 
 [params]
 

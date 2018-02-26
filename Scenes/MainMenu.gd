@@ -15,3 +15,15 @@ func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
+
+
+func _on_Play_Button_pressed():
+	get_tree().change_scene("res://Scenes/Main.tscn")
+
+
+func _on_Credits_Button_pressed():
+	get_tree().change_scene("res://Scenes/Credits.tscn")
+
+
+func _on_Exit_Button_pressed():
+	get_tree().quit()
