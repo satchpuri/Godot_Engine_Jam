@@ -200,13 +200,13 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 show_behind_parent = true
 z_index = 1
-frame = 0
+frame = 5
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Player" parent="." index="14" instance=ExtResource( 11 )]
 
 editor/display_folded = false
-position = Vector2( 648.366, 558.703 )
+position = Vector2( 673.991, 558.703 )
 
 [node name="Sprite2" type="Sprite" parent="Player" index="4"]
 
@@ -313,14 +313,21 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 16 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin10" parent="." index="25" instance=ExtResource( 15 )]
+[node name="Coin12" parent="." index="25" instance=ExtResource( 15 )]
+
+position = Vector2( 723.381, -2520.89 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 16 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Coin10" parent="." index="26" instance=ExtResource( 15 )]
 
 position = Vector2( 2967.35, -2938.16 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 16 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Coin11" parent="." index="26" instance=ExtResource( 15 )]
+[node name="Coin11" parent="." index="27" instance=ExtResource( 15 )]
 
 position = Vector2( 1961.52, 1409.86 )
 scale = Vector2( 0.1, 0.1 )
