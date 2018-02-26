@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Credits.png-48582351a891b640eb9028e693b2a89b.stex"
+path="res://.import/Coin1.png-1b57adc1a93f9bc6ad0c55e66d30ae27.stex"
 
 [deps]
 
-source_file="res://Textures/Credits.png"
-source_md5="8b1e085b3d77bd08b3e1659385cc9ad6"
+source_file="res://Textures/Coin1.png"
+source_md5="0c566fab7b361593c39acfcd5e295744"
 
-dest_files=[ "res://.import/Credits.png-48582351a891b640eb9028e693b2a89b.stex" ]
-dest_md5="220150516687785c39d4fe899e2d1507"
+dest_files=[ "res://.import/Coin1.png-1b57adc1a93f9bc6ad0c55e66d30ae27.stex" ]
+dest_md5="2eb684396cca6eee05d1ff92b65ac0dc"
 
 [params]
 

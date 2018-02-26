@@ -24,7 +24,7 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 1, 0, 5 ), PoolIntArra
 outlines = [ PoolVector2Array( 1024, 0, 1024, 608, 0, 608, 0, 0 ), PoolVector2Array( 608, 224, 800, 224, 800, 416, 608, 416 ) ]
 _sections_unfolded = [ "Resource" ]
 
-[node name="World" type="Node"]
+[node name="World" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
