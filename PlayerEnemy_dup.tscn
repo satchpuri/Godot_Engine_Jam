@@ -1862,7 +1862,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 show_behind_parent = true
 z_index = 1
-frame = 0
+frame = 15
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Enemy2" parent="." index="14" groups=[
@@ -1988,6 +1988,7 @@ patrolPoints = [ "N12", "N13" ]
 
 [node name="Player" parent="." index="25" instance=ExtResource( 12 )]
 
+editor/display_folded = false
 position = Vector2( 670, 560 )
 
 [node name="Sprite2" type="Sprite" parent="Player" index="4"]

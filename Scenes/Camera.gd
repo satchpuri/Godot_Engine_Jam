@@ -13,6 +13,9 @@ func _process(delta):
 	if player.isDead or exit.isOver:
 		$CanvasLayer/Message.text = "Game Over!"
 		$CanvasLayer/Message.align = Label.ALIGN_CENTER
+	
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().reload_current_scene()
 
 func _on_Player_move():
 	var player_offset = last_player_pos - player.position

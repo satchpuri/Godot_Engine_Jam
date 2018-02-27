@@ -33,7 +33,7 @@ animations = [ {
 } ]
 _sections_unfolded = [ "Resource" ]
 
-[node name="UI" type="HBoxContainer" index="0"]
+[node name="UI" type="HBoxContainer"]
 
 material = SubResource( 1 )
 anchor_left = 0.0
@@ -237,6 +237,7 @@ position = Vector2( 915.789, 437.883 )
 scale = Vector2( 2.1542, 2.33117 )
 frames = SubResource( 2 )
 animation = "New Anim"
+frame = 1
 playing = true
 _sections_unfolded = [ "Transform" ]
 
@@ -246,7 +247,6 @@ position = Vector2( 954.266, 357.559 )
 scale = Vector2( 2.1542, 2.33117 )
 frames = SubResource( 2 )
 animation = "New Anim"
-frame = 5
 playing = true
 _sections_unfolded = [ "Transform" ]
 
@@ -256,7 +256,7 @@ position = Vector2( 997.189, 440.422 )
 scale = Vector2( 2.1542, 2.33117 )
 frames = SubResource( 2 )
 animation = "New Anim"
-frame = 4
+frame = 5
 playing = true
 _sections_unfolded = [ "Transform" ]
 
