@@ -6,7 +6,7 @@ extends Sprite
 
 var collected = false
 var door
-var total = 13
+var total = 12
 
 func _ready():
 	door = get_parent().get_node("exit")
@@ -18,6 +18,7 @@ func _ready():
 func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
+	get_parent().get_node("CanvasLayer/Loots").text = "Loot Collected: " + str(total - door.remaining) + "/" + str(total)
 	var player = get_tree().root.get_node("World/Player")
 	if transform.get_origin().distance_to(player.transform.get_origin()) < 60 && !collected:
 		collected = true

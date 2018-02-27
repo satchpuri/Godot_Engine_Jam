@@ -29,6 +29,8 @@ var stepCounter = 20
 onready var ray_cast = $RayCast2D
 onready var health_bar = $ProgressBar
 
+var latest_collider = null
+
 func _ready():
 	pass
 
@@ -62,15 +64,18 @@ func _physics_process(delta):
 	ray_cast.cast_to = position + dir * 0.1 
 
 	if Input.is_action_pressed("attack") and !isAttacking:
+		var enemy = get_closest_enemy()
+		if enemy!=null:
+			enemy.inflict_damage(100)
 		attackTime = 0
 		isAttacking = true
-		if(ray_cast.is_colliding()):
-			var collider = ray_cast.get_collider()
-			if collider.is_in_group("Enemy") and global_position.distance_to(collider.position) < 90:
-				print("Hit Enemy")
-				collider.inflict_damage(100)
+#		if(ray_cast.is_colliding()):
+#			var collider = ray_cast.get_collider()
+#			if collider.is_in_group("Enemy") and global_position.distance_to(collider.position) < 100:
+#				print("Hit Enemy")
+#				collider.inflict_damage(100)
 	
-	if attackTime > 1.5:
+	if attackTime > 1:
 		isAttacking = false
 	
 	if stepping:
@@ -83,6 +88,20 @@ func _physics_process(delta):
 		stepping = false
 	update_animation()
 	pass
+
+func get_closest_enemy():
+	var enemies = get_tree().get_nodes_in_group("Enemy")
+	var min_enemy = null
+	var min_distance = 999999
+	for enemy in enemies:
+		var d = position.distance_to(enemy.position)
+		if d < min_distance:
+			min_enemy = enemy
+			min_distance = d
+	if min_distance<90:
+		return min_enemy
+	else:
+		return null
 
 func update_animation():	
 	if isAttacking:

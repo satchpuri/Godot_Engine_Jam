@@ -30,11 +30,13 @@ var patrols = {};
 onready var nav = get_parent().get_node("Navigation2D")
 onready var player = get_parent().get_node("Player")
 onready var health_bar = $ProgressBar
+onready var ray_cast = $RayCast2D
 var path = []
 
 func _ready():
 	loadPatrols()
 	currentPatrol = patrolPoints[0]
+	ray_cast.enabled = true
 	pass
 
 func loadPatrols():
@@ -77,6 +79,7 @@ func update_state():
 		pass
 	var playerDirection = (player.position - position).normalized()
 	var angleBetween = rad2deg(currrentDirection.angle_to(playerDirection));
+	ray_cast.cast_to = player.position
 	if position.distance_to(player.position)<DETECT_RADIUS && abs(angleBetween) < FOV/2:
 		draw_color = RED
 		state = EnemyState.Alert
@@ -93,6 +96,9 @@ func update_state():
 		draw_color = GREEN
 		#state = EnemyState.Patrol
 	pass
+
+func ray_cast_check():
+	return ray_cast.is_colliding() && ray_cast.get_collider().is_in_group("Player")
 
 func update_animation():
 	if state == EnemyState.Patrol || state == EnemyState.Alert:

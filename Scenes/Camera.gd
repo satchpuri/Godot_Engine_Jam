@@ -5,7 +5,7 @@ onready var screen_size = Vector2(OS.get_screen_size().x, OS.get_screen_size().y
 onready var player = get_node("Player")
 onready var exit = get_node("exit")
 onready var last_player_pos = player.position
-
+onready var originalTransform = get_viewport().get_canvas_transform()
 func _ready():
 	pass
 
@@ -16,6 +16,7 @@ func _process(delta):
 	
 	if Input.is_action_pressed("ui_cancel"):
 		get_tree().reload_current_scene()
+		get_viewport().set_canvas_transform(originalTransform)
 
 func _on_Player_move():
 	var player_offset = last_player_pos - player.position

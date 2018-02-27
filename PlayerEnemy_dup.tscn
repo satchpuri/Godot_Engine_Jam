@@ -1718,6 +1718,8 @@ _sections_unfolded = [ "Cell" ]
 
 [node name="Navigation2D" type="Navigation2D" parent="." index="1"]
 
+editor/display_folded = true
+
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D" index="0"]
 
 position = Vector2( 0, -10 )
@@ -1842,6 +1844,33 @@ shape = SubResource( 2 )
 
 [node name="CanvasLayer" parent="." index="10" instance=ExtResource( 10 )]
 
+editor/display_folded = false
+
+[node name="Message" parent="CanvasLayer" index="0"]
+
+rect_clip_content = false
+
+[node name="Loots" type="Label" parent="CanvasLayer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 40.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Margin" ]
+
 [node name="PatrolA" type="Node2D" parent="." index="11"]
 
 position = Vector2( 188, 198 )
@@ -1862,19 +1891,34 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 show_behind_parent = true
 z_index = 1
-frame = 15
+frame = 16
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="RayCast2D" parent="Enemy" index="2"]
+
+enabled = true
+
+[node name="ProgressBar" parent="Enemy" index="3"]
+
+rect_clip_content = false
 
 [node name="Enemy2" parent="." index="14" groups=[
 "Enemy",
 ] instance=ExtResource( 11 )]
 
-editor/display_folded = false
 position = Vector2( 1070, 270 )
 z_index = 2
 script = SubResource( 3 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 patrolPoints = [ "C", "D" ]
+
+[node name="Sprite" parent="Enemy2" index="0"]
+
+frame = 3
+
+[node name="ProgressBar" parent="Enemy2" index="3"]
+
+rect_clip_content = false
 
 [node name="Enemy3" parent="." index="15" groups=[
 "Enemy",
@@ -1986,10 +2030,16 @@ script = SubResource( 13 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 patrolPoints = [ "N12", "N13" ]
 
-[node name="Player" parent="." index="25" instance=ExtResource( 12 )]
+[node name="Player" parent="." index="25" groups=[
+"Player",
+] instance=ExtResource( 12 )]
 
 editor/display_folded = false
 position = Vector2( 670, 560 )
+
+[node name="ProgressBar" parent="Player" index="3"]
+
+rect_clip_content = false
 
 [node name="Sprite2" type="Sprite" parent="Player" index="4"]
 
@@ -2217,5 +2267,7 @@ position = Vector2( -20, -2590 )
 [connection signal="move" from="Player" to="." method="_on_Player_move"]
 
 
+[editable path="CanvasLayer"]
 [editable path="Enemy"]
+[editable path="Enemy2"]
 [editable path="Player"]
